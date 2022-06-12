@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <%- include('./includes/head') %>
+</head>
+
+<body>
+
+  <body class="rtl">
+    <div class="form-group">
+      <h1>کارهای <small>روزمره</small></h1>
+      <form action="/admin/add-todo" role="form" class="row w-50 justify-content-center mx-auto" method="POST">
+        <div class="input-group">
+          <input type="text" name="todo" class="form-control w-50" placeholder="کار امروز" />
+          <div class="input-group-prepend">
+            <button type="submit" class="btn btn-primary fa fa-plus" />
+          </div>
+        </div>
+      </form>
+      <div class="mx-auto w-50 mb-3 alert alert-primary row">
+
+        <p class="d-inline col">کارهای انجام شده : <span class="badge badge-light bg-dark badge-pill"><%= compeletedTodos%>
+            <!-- CompletedTodos -->
+          </span></p>
+        <div class="d-inline col">
+          <ul class="list-group">
+
+            <%todosList.forEach(element=>{%>
+            <%if(element.compeleted){%>
+            <li class="list-group-item list-group-item-dark"><%=element.description%>
+              <a href="/admin/removetodo/<%= element.id%> " class="close fa fa-trash" style="color: red;"></a>
+            </li>
+
+            <%}%>
+                      <%})%>
+          </ul>
+
+        </div>
+        <p class="d-inline col">کارهای باقی مانده امروز : <span class="badge badge-light bg-dark badge-pill"><%=unCompeletedTodos%>
+            <!-- RemainingTodos -->
+          </span></p>
+        <div class="d-inline col">
+          <ul class="list-group">
+            <% todosList.forEach(element=> {%>
+            <%if (!element.compeleted) {%>
+
+            <li class="list-group-item list-group-item-dark"><%=element.description%>
+              <a href="/admin/removetodo/<%= element.id%> " class="close fa fa-trash" style="color: red;"></a>
+              <a href="/admin/compeleted/<%= element.id%> " class="close fa fa-edit" style="color: blue; margin-right: 10px;"></a>
+            </li>
+            <%}%>
+
+
+            <% }); %>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
